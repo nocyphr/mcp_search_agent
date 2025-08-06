@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  crawl4ai:
+    image: unclecode/crawl4ai:latest
+
+  firecrawl-adapter:
+    env_file:
+      - api.env
+    build: ../api/
+    volumes:
+      - ../api/main.py:/app/main.py

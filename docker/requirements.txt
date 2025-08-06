@@ -1,0 +1,4 @@
+mcp[cli]
+llama-index
+llama-index-tools-mcp
+litellm
