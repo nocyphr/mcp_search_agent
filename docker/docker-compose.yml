@@ -10,3 +10,28 @@ services:
     build: ../api/
     volumes:
       - ../api/main.py:/app/main.py
+  search-agent:
+    command: python src/server.py 
+    ports:
+      - $MCP_PORT:$MCP_PORT
+    env_file:
+      - .env
+    build: 
+      context: ./
+      dockerfile: server.dockerfile
+    volumes:
+      - ../src/server.py:/app/src/server.py:ro
+      
+  tool-server:
+    command: python src/tool_server.py 
+    expose:
+      - $TOOL_MCP_PORT
+    env_file:
+      - .env
+    build: 
+      context: ./
+      dockerfile: server.dockerfile
+    volumes:
+      - ../src/tool_server.py:/app/src/tool_server.py:ro
+      - ../src/utils.py:/app/src/utils.py:ro
+      
