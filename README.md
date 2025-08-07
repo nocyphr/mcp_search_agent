@@ -17,6 +17,10 @@ MCP is nothing new, agents are nothing new, tools are nothing new — so what's 
 - [ ] reverse proxy (traefik)
 - [ ] protection (api-keys, so not anyone on the wide wild web can just suck on your mcp goodies)
 
+## Roadmap
+- [ ] langfuse for eval and observability
+- [ ] redis + endpoint to fetch results used for final response of last query by UID
+
 ---
 
 Have a look for now :D
