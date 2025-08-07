@@ -1,14 +1,13 @@
 import asyncio
-import os
-from llama_index.tools.mcp import BasicMCPClient
+from fastmcp import Client
 
-async def main():
-    MCP_PORT = os.getenv("MCP_PORT", "8080")
-    client = BasicMCPClient(f"http://localhost:{MCP_PORT}/mcp")
-    response = await client.call_tool("search", {"query": "What is the capital of France?"})
-    print("=== Response ===")
-    print(response)
+async def run_search():
+    async with Client("http://localhost:8000/mcp/") as client:
+        res = await client.call_tool(
+            "search", {"query": "What is the capital of France?"}
+        )
+        if res.content:
+            print(res.content[0].text)
 
-if __name__ == "__main__":
-    asyncio.run(main())
 
+asyncio.run(run_search())
