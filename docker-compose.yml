@@ -7,11 +7,11 @@ services:
   firecrawl-adapter:
     env_file:
       - api.env
-    build: ../api/
+    build: ./api/
     volumes:
-      - ../api/main.py:/app/main.py
+      - ./api/main.py:/app/main.py
   search-agent:
-    command: python src/server.py 
+    command: mcp_agent_server
     ports:
       - $MCP_PORT:$MCP_PORT
     env_file:
@@ -19,11 +19,9 @@ services:
     build: 
       context: ./
       dockerfile: server.dockerfile
-    volumes:
-      - ../src/server.py:/app/src/server.py:ro
       
   tool-server:
-    command: python src/tool_server.py 
+    command: mcp_tool_server
     expose:
       - $TOOL_MCP_PORT
     env_file:
@@ -31,7 +29,4 @@ services:
     build: 
       context: ./
       dockerfile: server.dockerfile
-    volumes:
-      - ../src/tool_server.py:/app/src/tool_server.py:ro
-      - ../src/utils.py:/app/src/utils.py:ro
       

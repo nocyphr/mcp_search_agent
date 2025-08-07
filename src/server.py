@@ -7,6 +7,7 @@ import os
 
 from datetime import datetime
 
+
 mcp = FastMCP(host="0.0.0.0", port=os.getenv("MCP_PORT", 8000), log_level="INFO")
 
 
@@ -25,7 +26,7 @@ async def search(query: str):
     llm = LiteLLM(model=os.getenv("AGENT_MODEL"))
     agent = ReActAgent(tools=tools, llm=llm)
     ctx = Context(agent)
-    print('CAVEMAN', datetime.now())
+    print("CAVEMAN", datetime.now())
     handler = agent.run(
         f"""
 {query}
