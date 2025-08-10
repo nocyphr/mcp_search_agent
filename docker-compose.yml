@@ -11,27 +11,23 @@ services:
     volumes:
       - ./api/main.py:/app/main.py
   search-agent:
+    image: nocyphr/mcp_search_agent-agent
     command: mcp_agent_server
     ports:
       - $MCP_PORT:$MCP_PORT
     env_file:
       - .env
-    build: 
-      context: ./
-      dockerfile: agent.dockerfile
     networks:
       - default
       - agent_mcp
       
   tool-server:
+    image: nocyphr/mcp_search_agent-tools
     command: mcp_tool_server
     expose:
       - $TOOL_MCP_PORT
     env_file:
       - .env
-    build: 
-      context: ./
-      dockerfile: tools.dockerfile
       
 networks: 
   agent_mcp:
