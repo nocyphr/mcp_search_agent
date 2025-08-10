@@ -11,7 +11,7 @@ MCP is nothing new, agents are nothing new, tools are nothing new — so what's 
    (The LLM still takes however long it takes — not part of my code.)
 
 ## Open Todos
-- [ ] proper multistage build + publish to dockerhub for faster deployment
+- [x] proper multistage build + publish to dockerhub for faster deployment
 - [ ] proper docs (eg instructions how to run, build, etc
 - [ ] tests (yep still missing those, getting lazy there)
 - [ ] reverse proxy (traefik)
