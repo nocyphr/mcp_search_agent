@@ -5,12 +5,11 @@ import asyncio
 
 async def fetch_scrape(session, url):
     headers = {
-        "X-API-KEY": getenv("FIRECRAWL_API_KEY"),
         "Content-Type": "application/json",
     }
     payload = {"url": url, "formats": ["markdown"]}
     async with session.post(
-        getenv("FIRECRAWL_SCRAPE_URL"), json=payload, headers=headers, timeout=20
+        getenv("API_SCRAPE_URL"), json=payload, headers=headers, timeout=20
     ) as resp:
         resp.raise_for_status()
         data = await resp.json()
@@ -20,8 +19,19 @@ async def fetch_scrape(session, url):
 async def extract_with_llm(markdown: str):
     import litellm
 
-    with open("src/prompts/extraction_prompt.md") as f:
-        prompt = f.read().format(markdown=markdown)
+    prompt = f"""
+Extract relevant information in a bulletpoint list from the content below.
+If information is present, state it directly and concisely, with no introductory wording.
+If markdown is a tutorial/instruction make sure you do not remove any information or change the sequence!
+If you find something that sounds like it could be a quote, ensure its unchanged integrity. 
+If you find code, make sure you ensure its unchanged integrity
+a chain of thought should become an ordered list
+
+---
+
+RAW:
+{markdown}
+        """
     try:
         response = await litellm.acompletion(
             model=getenv("EXTRACTION_MODEL"),
@@ -54,11 +64,8 @@ async def enrich_with_markdown_async(results):
     return results
 
 
-def firecrawl_search(query: str, limit: int = 20) -> dict:
+def web_search(query: str, limit: int = 20) -> dict:
     payload = {"query": query, "limit": limit}
-    headers = {"X-API-KEY": getenv("FIRECRAWL_API_KEY")}
-    resp = requests.post(
-        getenv("FIRECRAWL_SEARCH_URL"), json=payload, headers=headers, timeout=10
-    )
+    resp = requests.post(getenv("API_SEARCH_URL"), json=payload, timeout=10)
     resp.raise_for_status()
     return resp.json()

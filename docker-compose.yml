@@ -18,7 +18,10 @@ services:
       - .env
     build: 
       context: ./
-      dockerfile: server.dockerfile
+      dockerfile: agent.dockerfile
+    networks:
+      - default
+      - agent_mcp
       
   tool-server:
     command: mcp_tool_server
@@ -28,5 +31,8 @@ services:
       - .env
     build: 
       context: ./
-      dockerfile: server.dockerfile
+      dockerfile: tools.dockerfile
       
+networks: 
+  agent_mcp:
+    name: agent_mcp

@@ -1,0 +1,9 @@
+pyinstaller
+mcp[cli]
+llama-index
+llama-index-tools-mcp
+llama-index-llms-litellm
+litellm
+backoff
+litellm[proxy]
+

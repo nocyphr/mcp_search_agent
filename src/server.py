@@ -23,7 +23,7 @@ async def search(query: str):
 
     tools = await spec.to_tool_list_async()
 
-    llm = LiteLLM(model=os.getenv("AGENT_MODEL"))
+    llm = LiteLLM(model=os.getenv("AGENT_MODEL"), temperature=os.getenv("AGENT_TEMP"))
     agent = ReActAgent(tools=tools, llm=llm)
     ctx = Context(agent)
     print("CAVEMAN", datetime.now())
