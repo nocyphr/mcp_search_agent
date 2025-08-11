@@ -13,8 +13,8 @@ services:
   search-agent:
     image: nocyphr/mcp_search_agent-agent
     command: mcp_agent_server
-    ports:
-      - $MCP_PORT:$MCP_PORT
+    # ports:
+    #   - $MCP_PORT:$MCP_PORT
     env_file:
       - .env
     networks:
